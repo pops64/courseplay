@@ -427,6 +427,10 @@ function courseplay:setNameVariable(workTool)
 		workTool.cp.isAgrisemCultiplowPlatinum8m = true;
 		workTool.cp.notToBeReversed = true; --TODO Fix reverseing with this tool. The distances on this tool are calculated incorrectly causeing the reverse turn to fail
 		workTool.cp.overwriteTurnRadius = 7;
+
+	--Stara Fox 11 [Giants Platinium DLC]
+	elseif workTool.cp.xmlFileName == 'staraFox11.xml' then
+		workTool.cp.isStaraFox11 = true;
 		
 	--Bednar SM 180000 [Giants Big Bud DLC]
 	elseif workTool.cp.xmlFileName == 'BednarSM18000.xml' then
@@ -867,9 +871,9 @@ function courseplay:askForSpecialSettings(self, object)
 	--
 	-- automaticToolOffsetX:					(Distance in meters)	Used to automatically set the tool horizontal offset. Negagive value = left, Positive value = right.
 	-- object.cp.backMarkerOffsetCorection:		(Distance in meters)	If the implement stops to early or to late, you can specify then it needs to raise and/or turn off the work tool
-	--																	Positive value, moves it forward, Negative value moves it backwards.
+	--																	Positive value, moves it forward(eailer), Negative value moves it backwards(later).
 	-- object.cp.frontMarkerOffsetCorection:	(Distance in meters)	If the implement starts to early or to late, you can specify then it needs to lower and/or turn on the work tool
-	--																	Positive value, moves it forward, Negative value moves it backwards.
+	--																	Positive value, moves it forward(eailer), Negative value moves it backwards(later).
 	-- object.cp.haveInversedRidgeMarkerState:	(Boolean)				If the ridmarker is using the wrong side in auto mode, set this value to true
 	-- object.cp.realUnfoldDirectionIsReversed:	(Boolean)				If the tool unfolds when driving roads and folds when working fields, then set this one to true to reverse the folding order.
 	-- object.cp.specialUnloadDistance:			(Distance in meters)	Able to set the distance to the waiting point when it needs to unload. Used by bale loaders. Distance from trailer's turning point to the rear unloading point.
@@ -906,6 +910,10 @@ function courseplay:askForSpecialSettings(self, object)
 	if object.cp.isSP400F then
 		object.cp.backMarkerOffsetCorection = 0.5;
 		object.cp.frontMarkerOffsetCorection = -0.25;
+
+	elseif object.cp.isStaraFox11 then
+		object.cp.backMarkerOffsetCorection = 1;
+		object.cp.frontMarkerOffsetCorection = 0.25;
 
 	elseif object.cp.isUrsusT127 then
 		object.cp.specialUnloadDistance = -1.8;
